@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+ - docker
+
+before_install:
+ - echo "start creating an image with dockerfile"
+ - docker build -t docker-react-app-foxmon -f Dockerfile.dev .
+
+script:
+ - docker run -e CI=true docker-react-app-foxmon npm run test -- --coverage
+
+after_success:
+ - echo "Test success"
